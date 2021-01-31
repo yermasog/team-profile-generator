@@ -4,8 +4,10 @@ const employee = require('./lib/Employee');
 const manager = require('./lib/Manager');
 const engineer = require('./lib/Engineer');
 const intern = require('./lib/Intern')
-const team = require('./src/page-template');
+const html = require('./src/page-template');
 const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 //questions for employee
         //.then >> ceate Employee object
@@ -13,6 +15,39 @@ const Manager = require('./lib/Manager');
                         //if manager >> create manager object
                                 //else intern >> create intern object 
 //write file with objects
+const employeeQuestions = [
+    {
+        type: "list",
+        name: "employee",
+        message: "Which kind of employee would you like to add?",
+        choices: ["Manager", "Engineer", "Intern"],
+    },
+]
+
+function newEmployee() {
+    inquirer.prompt(employeeQuestions)
+    .then((responses) => {
+        let role = ""
+        switch (responses) {
+         case "Manager" : role = "Manager"
+            break;
+         case "Engineer" : role = "Engineer"  
+            break;
+         case "Intern" : role = "Intern"
+            break;
+         default: "Please choose a role"
+         
+         return role
+        }
+        
+    })
+}
+
+
+newEmployee()
+console.log(role)
+const team = [];
+
 const managerQuestions = [
         {
             type: "input",
@@ -36,12 +71,13 @@ const managerQuestions = [
         },
     ];
 
-    inquirer
-        .prompt(managerQuestions)
-           .then((response) => {
-                const manager = new Manager (response.name, response.id, response.email, response.office);
-                console.log(manager)
-           })
+    // inquirer
+    //     .prompt(managerQuestions)
+    //        .then((response) => {
+    //             const employee = new Employee (response.name, response.id, response.email);
+    //             console.log(employee)
+                
+    //        })
     
 
     
