@@ -9,17 +9,11 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-//questions for employee
-//.then >> ceate Employee object
-//type of employee:
-//if manager >> create manager object
-//else intern >> create intern object 
-//write file with objects
 const team = [];
 const employeeRole = [
     {
         type: "list",
-        message: "Which kind of employee would you like to add?",
+        message: "What kind of employee would you like to add?",
         choices: ["Manager", "Engineer", "Intern"],
         name: "employee",
     },
@@ -28,17 +22,17 @@ const employeeRole = [
 function role() {
     inquirer.prompt(employeeRole)
         .then((response) => {
-            let empRole = ""
-            switch (response) {
-                case "Manager": empRole = "Manager"
+           
+            switch (response.employee) {
+                case "Manager": newManager();
                     break;
-                case "Engineer": empRole = "Engineer"
+                case "Engineer": newEngineer();
                     break;
-                case "Intern": empRole = "Intern"
+                case "Intern": newIntern();
                     break;
                 default: "Please choose a role"
 
-                    return empRole
+                    
 
             }
             
@@ -46,18 +40,7 @@ function role() {
 
 }
 
-function newEmployee(role) {
-    if (role == "Manager") {
-        newManager();
-    }
-    else if (role == "Engineer") {
-        newEngineer();
-    }
-    else if (role = -"Intern") {
-        newIntern();
-    }
 
-}
 
 function newManager() {
     inquirer
