@@ -15,20 +15,22 @@ const Intern = require('./lib/Intern');
                         //if manager >> create manager object
                                 //else intern >> create intern object 
 //write file with objects
-const employeeQuestions = [
+const team = [];
+const employeeRole = [
     {
         type: "list",
-        name: "employee",
         message: "Which kind of employee would you like to add?",
         choices: ["Manager", "Engineer", "Intern"],
+        name: "employee",
     },
 ]
 
-function newEmployee() {
-    inquirer.prompt(employeeQuestions)
-    .then((responses) => {
+function role() {
+    inquirer.prompt(employeeRole)
+    .then((response) => {
         let role = ""
-        switch (responses) {
+        
+        switch (response) {
          case "Manager" : role = "Manager"
             break;
          case "Engineer" : role = "Engineer"  
@@ -39,92 +41,115 @@ function newEmployee() {
          
          return role
         }
-        
-    })
+    });
+    newEmployee();
+    
 }
 
+function newEmployee(role) {
+    if(role=="Manager") {
+        newManager();
+    }
+    else if(role=="Engineer") {
+        newEngineer();
+    } 
+    else if(role=-"Intern") {
+        newIntern();
+    }
+    
+}
 
-newEmployee()
-console.log(role)
-const team = [];
+function newManager() {
+    inquirer.prompt(managerQuestions)
+    .then(response => {
+        let manager = new Manager(response.name, response.id, response.email, response.office)
+        team.push(manager)
+    }),
+}
+
+function newEngineer() {
+    inquirer.prompt(engineerQuestions)
+    .then(response => {
+        let engineer = new Engineer(response.name, response.id, response.email, response.github)
+        team.push(engineer)
+    }),
+}
+
+function newIntern() {
+    inquirer.prompt(internQuestions)
+    .then(response => {
+        let intern = new Intern(response.name, response.id, response.email, response.school)
+        team.push(intern)
+    }),
+}
 
 const managerQuestions = [
         {
             type: "input",
-            message: "Manager name?",
+            message: "Name:",
             name: "name"
         },
         {
             type: "input",
-            message: "Manager ID?",
+            message: "ID",
             name: "id"
         },
         {
             type: "input",
-            message: "Manager email address?",
+            message: "Email address:",
             name: "email"
         },
         {
-            type: "input",
-            message: "Manager office number?",
+            type: "list",
+            message: "Office number:",
             name: "office"
         },
     ];
-
-    // inquirer
-    //     .prompt(managerQuestions)
-    //        .then((response) => {
-    //             const employee = new Employee (response.name, response.id, response.email);
-    //             console.log(employee)
-                
-    //        })
     
-
+    const engineerQuestions = [
+        {
+            type: "input",
+            message: "Name:",
+            name: "engineer name"
+        },
+        {
+            type: "input",
+            message: "ID:",
+            name: "engineer id"
+        },
+        {
+            type: "input",
+            message: "Email address:",
+            name: "engineer email"
+        },
+        {
+            type: "input",
+            message: "GitHub username",
+            name: "github"
+        },
+    ];
     
-//     const engineerQuestions = [
-//         {
-//             type: "input",
-//             message: "Engineer name:",
-//             name: "engineer name"
-//         },
-//         {
-//             type: "input",
-//             message: "Engineer ID:",
-//             name: "engineer id"
-//         },
-//         {
-//             type: "input",
-//             message: "Engineer email address:",
-//             name: "engineer email"
-//         },
-//         {
-//             type: "input",
-//             message: "Engineer GitHub username",
-//             name: "engineer github"
-//         },
-//     ];
-    
-//     const internQuestions = [
-//         {
-//             type: "input",
-//             message: "Intern name:",
-//             name: "intern name"
-//         },
-//         {
-//             type: "input",
-//             message: "Intern ID:",
-//             name: "intern id"
-//         },
-//         {
-//             type: "input",
-//             message: "Intern email address:",
-//             name: "intern email"
-//         },
-//         {
-//             type: "input",
-//             message: "Intern school",
-//             name: "intern school"
-//         },
-//     ];
+    const internQuestions = [
+        {
+            type: "input",
+            message: "Name:",
+            name: "intern name"
+        },
+        {
+            type: "input",
+            message: "ID:",
+            name: "intern id"
+        },
+        {
+            type: "input",
+            message: "Email address:",
+            name: "intern email"
+        },
+        {
+            type: "input",
+            message: "School",
+            name: "school"
+        },
+    ];
     
     
