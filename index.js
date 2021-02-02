@@ -1,9 +1,5 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const employee = require('./lib/Employee');
-const manager = require('./lib/Manager');
-const engineer = require('./lib/Engineer');
-const intern = require('./lib/Intern')
 const html = require('./src/page-template');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
@@ -74,7 +70,7 @@ const managerQuestions = [
 function newEngineer() {
     inquirer.prompt(engineerQuestions)
         .then(response => {
-            let engineer = new Engineer(response.name, response.id, response.email, response.github)
+            let engineer = new Engineer(response.name, response.Id, response.email, response.Github)
             team.push(engineer);
             addNewEmployee()
             // console.log(engineer)
@@ -101,14 +97,14 @@ const engineerQuestions = [
     {
         type: "input",
         message: "Engineer GitHub username",
-        name: "gitHub"
+        name: "Github"
     },
 ];
 
 function newIntern() {
     inquirer.prompt(internQuestions)
         .then(response => {
-            let intern = new Intern(response.name, response.id, response.email, response.school)
+            let intern = new Intern(response.name, response.Id, response.email, response.school)
             team.push(intern);
             addNewEmployee()
             // console.log(intern)
