@@ -10,67 +10,64 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
 const team = [];
-const employeeRole = [
+const addEmployee = [
     {
         type: "list",
         message: "What kind of employee would you like to add?",
-        choices: ["Manager", "Engineer", "Intern"],
+        choices: ["Engineer", "Intern", "Done adding employees"],
         name: "employee",
     },
 ]
 
-function role() {
-    inquirer.prompt(employeeRole)
+function addNewEmployee() {
+    inquirer
+        .prompt(addEmployee)
         .then((response) => {
-           
             switch (response.employee) {
-                case "Manager": newManager();
-                    break;
                 case "Engineer": newEngineer();
                     break;
                 case "Intern": newIntern();
                     break;
+                case "Done adding employees": generateTeam(team) ;
+                    break;
                 default: "Please choose a role"
-
-                    
-
+                
             }
-            
         })
-
 }
-
-
 
 function newManager() {
     inquirer
         .prompt(managerQuestions)
         .then((response) => {
-            let manager = new Manager(response.name, response.id, response.email, response.office)
-            team.push(manager)
+            let manager = new Manager(response.name, response.Id, response.email, response.officeNumber)
+            team.push(manager);
+            addNewEmployee();
+            // console.log(manager)
+            // console.log(team)
         })
 }
 
 const managerQuestions = [
     {
         type: "input",
-        message: "Name:",
+        message: "Manager Name:",
         name: "name"
     },
     {
         type: "input",
-        message: "ID",
-        name: "id"
+        message: "Manager ID",
+        name: "Id"
     },
     {
         type: "input",
-        message: "Email address:",
+        message: "Manager Email address:",
         name: "email"
     },
     {
-        type: "list",
-        message: "Office number:",
-        name: "office"
+        type: "input",
+        message: "Manager Office number:",
+        name: "officeNumber"
     },
 ];
 
@@ -78,30 +75,33 @@ function newEngineer() {
     inquirer.prompt(engineerQuestions)
         .then(response => {
             let engineer = new Engineer(response.name, response.id, response.email, response.github)
-            team.push(engineer)
+            team.push(engineer);
+            addNewEmployee()
+            // console.log(engineer)
+            // console.log(team)
         })
 }
 
 const engineerQuestions = [
     {
         type: "input",
-        message: "Name:",
-        name: "engineer name"
+        message: "Engineer Name:",
+        name: "name"
     },
     {
         type: "input",
-        message: "ID:",
-        name: "engineer id"
+        message: "Engineer ID:",
+        name: "Id"
     },
     {
         type: "input",
-        message: "Email address:",
-        name: "engineer email"
+        message: "Engineer Email address:",
+        name: "email"
     },
     {
         type: "input",
-        message: "GitHub username",
-        name: "github"
+        message: "Engineer GitHub username",
+        name: "gitHub"
     },
 ];
 
@@ -109,31 +109,42 @@ function newIntern() {
     inquirer.prompt(internQuestions)
         .then(response => {
             let intern = new Intern(response.name, response.id, response.email, response.school)
-            team.push(intern)
+            team.push(intern);
+            addNewEmployee()
+            // console.log(intern)
+            // console.log(team)
         })
 }
 
 const internQuestions = [
     {
         type: "input",
-        message: "Name:",
-        name: "intern name"
+        message: "Intern Name:",
+        name: "name"
     },
     {
         type: "input",
-        message: "ID:",
-        name: "intern id"
+        message: "Intern ID:",
+        name: "Id"
     },
     {
         type: "input",
-        message: "Email address:",
-        name: "intern email"
+        message: "Intern Email address:",
+        name: "email"
     },
     {
         type: "input",
-        message: "School",
+        message: "Intern School:",
         name: "school"
     },
 ];
 
-role();
+function generateTeam() {
+    fs.writeFileSync("index.html", html(team), (err) => {
+      if (err) {
+        console.log(err);
+      }
+    })
+  }
+
+newManager()
