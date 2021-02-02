@@ -8,5 +8,10 @@ A Node.js command-line application that takes in information about employees on 
 
 <br>
 <br>
+
+## Testing
+
+To test, install jest with npm install --save-dev jest
+
 GitHub Repo:
 <a href="https://github.com/yermasog/team-profile-generator">https://github.com/yermasog/team-profile-generator</a>
